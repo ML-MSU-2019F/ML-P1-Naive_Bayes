@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="la4j">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/la4j-0.6.0.zip!/la4j-0.6.0/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
