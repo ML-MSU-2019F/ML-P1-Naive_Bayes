@@ -16,9 +16,9 @@ public class Menu {
      * @param paths - file paths relating to the options
      */
     public Menu(String welcome,String[] options,String[] paths){
-        this.menu = buildMenu();
         this.options = options;
         System.out.println(welcome);
+        this.menu = buildMenu();
         //if a valid choice is picked, it will be a number that is not zero
         ArrayList<String> file_read = new ArrayList<>();
         //Handling for if file reading fails, give error and then re-prompt for a new choice

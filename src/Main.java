@@ -1,6 +1,3 @@
-import java.awt.event.ActionListener;
-import java.util.Observer;
-
 public class Main {
     public static void main(String[] args) {
         //welcome message for program entry
