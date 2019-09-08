@@ -36,7 +36,8 @@ public class Menu {
         //TODO: Ability to weigh categorical values such as yes/no and some form of class identification
         //TODO: so that we can give what classification our classifier chooses when presented with a new situation
         //A readout of the file_read
-        readArrayList(file_read);
+        //readArrayList(file_read);
+        Application app = new Application(file_read);
     }
 
     /**
@@ -78,24 +79,14 @@ public class Menu {
      * Using the classes options, constructs a nice looking menu for option selection
      * @return String of the newly built menu
      */
-    private String buildMenu(){
+    private String buildMenu() {
         //String builder to build displayed options
         StringBuilder selection_builder = new StringBuilder();
         selection_builder.append("Choose dataset to use (-1 to exit): \n");
-        for(int x = 0;x<this.options.length;x++){
+        for (int x = 0; x < this.options.length; x++) {
             //using tabs and \n to correctly format menu
-            selection_builder.append("\t" + (x+1) + ": " + this.options[x] + "\n");
+            selection_builder.append("\t" + (x + 1) + ": " + this.options[x] + "\n");
         }
         return selection_builder.toString();
-    }
-
-    /**
-     * prints out the content of an array list
-     * @param arr any array list composed of strings
-     */
-    private static void readArrayList(ArrayList<String> arr){
-        for(String line: arr){
-            System.out.println(line);
-        }
     }
 }
