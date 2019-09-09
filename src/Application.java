@@ -67,7 +67,6 @@ public class Application {
         //indicate class index was not found
         return -1;
     }
-
     /**
      * Could be used on a full set or during 10 fold cross validation
      * eventually will return the data we need to analyze a new situation

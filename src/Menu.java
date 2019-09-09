@@ -36,7 +36,6 @@ public class Menu {
         //TODO: Ability to weigh categorical values such as yes/no and some form of class identification
         //TODO: so that we can give what classification our classifier chooses when presented with a new situation
         //A readout of the file_read
-        //readArrayList(file_read);
         Application app = new Application(file_read);
     }
 
