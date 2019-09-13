@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class Menu {
     private String menu;
     private String[] options;
-
+    private ArrayList<String> file;
+    private int choice;
     /**
      * @param welcome - welcome message printed once by the menu
      * @param options - options that build the menu displayed
@@ -22,9 +23,10 @@ public class Menu {
         //if a valid choice is picked, it will be a number that is not zero
         ArrayList<String> file_read = new ArrayList<>();
         //Handling for if file reading fails, give error and then re-prompt for a new choice
+        int choice = 0;
         while(file_read.size() == 0){
             //choice from menu
-            int choice = getOptionChoice();
+            choice = getOptionChoice();
             //resource related to the selection
             InputStream is = getClass().getClassLoader().getResourceAsStream(paths[choice-1]);
             //custom filereader
@@ -32,13 +34,15 @@ public class Menu {
             //get array list of contents
             file_read = fr.getFileContentsAsArrayList();
         }
-        //TODO: add splitting + some form of ignoring for values that shouldn't be used and
-        //TODO: Ability to weigh categorical values such as yes/no and some form of class identification
-        //TODO: so that we can give what classification our classifier chooses when presented with a new situation
-        //A readout of the file_read
-        Application app = new Application(file_read);
+        this.choice = choice;
+        this.file = file_read;
     }
-
+    public int getChoice(){
+        return this.choice;
+    }
+    public ArrayList<String> getFile(){
+        return this.file;
+    }
     /**
      * This method prints out the menu and also prompts for a valid input
      * @return int representing the valid choice selected from our available choices
