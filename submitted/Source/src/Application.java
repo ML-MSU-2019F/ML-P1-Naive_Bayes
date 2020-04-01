@@ -52,21 +52,24 @@ public class Application {
         //using pure 0-1 loss, sum the total right and the total wrong we get when classifying
         int total_right = 0;
         int total_wrong = 0;
-        for(int x = 0;x<split_up.size();x++){
-            HashMap<String,ArrayList<HashMap<String,Double>>> classifier = null;
-            ArrayList<ArrayList<String>> current = split_up.get(x);
-            ArrayList<ArrayList<String>> training_set = new ArrayList<>();
-            for(int y = 0;y<split_up.size();y++){
-                if(y==x){
-                    continue;
-                }
-                training_set.addAll(split_up.get(y));
+        //use the previous train on the next split
+        HashMap<String,ArrayList<HashMap<String,Double>>> previous_train = null;
+        for(ArrayList<ArrayList<String>> split: split_up){
+            //if we have a previous train, check how well it classifies on the current split
+            if(previous_train != null){
+                int[] right_and_wrong = checkAccuracy(previous_train,split);
+                //add up how good/bad it did
+                total_right += right_and_wrong[0];
+                total_wrong += right_and_wrong[1];
             }
-            classifier = trainClassifier(training_set);
-            int[] right_and_wrong = checkAccuracy(classifier,current);
-            total_right += right_and_wrong[0];
-            total_wrong += right_and_wrong[1];
+            //set the new previous train to that of the current split
+            previous_train = trainClassifier(split);
         }
+        //do the final check, which would need training on the first split
+        int[] right_and_wrong = checkAccuracy(previous_train,split_up.get(0));
+        //add up how good/bad it did
+        total_right += right_and_wrong[0];
+        total_wrong += right_and_wrong[1];
         //communicate the values to the user
         System.out.println("Total Classified Right: " + total_right);
         System.out.println("Total Classified Wrong: " + total_wrong);
@@ -439,7 +442,8 @@ public class Application {
                     //if our local probability doesn't exist (0 probability)
                     if(local_probability == null){
                         //set current probability equal to zero and break, since we know the result will be zero
-                        current_probability = current_probability * 0.0001;
+                        current_probability = 0.0;
+                        break;
                     }else{
                         //initialize or multiply the probabilities we have
                         if(current_probability != null) {

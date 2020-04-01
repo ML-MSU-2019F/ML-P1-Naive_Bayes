@@ -1,0 +1,3 @@
+Keefer - Algorithm implementation
+Matt - Structure for File reading
+Beckett - data import and formatting
